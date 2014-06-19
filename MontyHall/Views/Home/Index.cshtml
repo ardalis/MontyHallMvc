@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@model MontyHall.Models.Stats
+<h2>Stats</h2>
+<ul>
+    <li>Games Played: @Model.TotalGames()</li>
+    <li>Games Won: @Model.Wins</li>
+    <li>Win Rate: @Model.WinPercentage() %</li>
+</ul>
+<div class="row">
+    <div class="col-md-4">
+        <h2>DOOR 1</h2>
+        <p><a class="btn btn-default" href="/Door/Choose/1">Choose Door 1 &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>DOOR 2</h2>
+        <p><a class="btn btn-default" href="/Door/Choose/2">Choose Door 2 &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>DOOR 3</h2>
+        <p><a class="btn btn-default" href="/Door/Choose/3">Choose Door 3 &raquo;</a></p>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+﻿@model MontyHall.Models.DoorState
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>You chose Door Number @Model.ChosenDoor</h2>
+<p>
+    Monty Hall opens a door and reveals a GOAT!  He then asks you to confirm your choice.
+</p>
+<h2>The Doors:</h2>
+@Html.Raw(Model.ToString())
+
+<h2>Stick with Door Number @Model.ChosenDoor or switch?</h2>
+<ul>
+    <li><a href="/door/confirm/@Model.ChosenDoor.Value">KEEP MY CHOICE (Door @Model.ChosenDoor.Value) &raquo;</a></li>
+    <li><a href="/door/confirm/@Model.OtherDoor()">SWITCH TO Door @Model.OtherDoor() &raquo;</a></li>
+</ul>

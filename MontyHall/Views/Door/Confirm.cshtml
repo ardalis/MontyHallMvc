@@ -1,0 +1,15 @@
+﻿@model bool
+
+@{
+    ViewBag.Title = "Confirm";
+}
+
+@if (Model)
+{
+    <h2>YOU WON</h2>
+}
+else
+{
+    <h2>YOU LOSE</h2>
+}
+<a href="/Home">Play Again</a>
