@@ -35,6 +35,7 @@ namespace MontyHall.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            doorState.ChosenDoor = id;
             var stats = Session["Stats"] as Stats;
             bool isWinner = doorState.ChosenDoor == doorState.WinningDoor().DoorNumber;
             if (isWinner)
