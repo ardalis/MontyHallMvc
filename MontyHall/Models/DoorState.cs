@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace MontyHall.Models
 {
@@ -42,7 +40,9 @@ namespace MontyHall.Models
         public int OtherDoor()
         {
             if (!ChosenDoor.HasValue) return 0;
-            return Doors.Where(d => !d.IsOpen).First(d => d.DoorNumber != ChosenDoor.Value).DoorNumber;
+            return Doors
+                .Where(d => !d.IsOpen && d.DoorNumber != ChosenDoor.Value)
+                .First(d => d.DoorNumber != ChosenDoor.Value).DoorNumber;
         }
 
         public Door WinningDoor()

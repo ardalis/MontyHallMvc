@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
-using System.Web;
 using System.Web.Mvc;
 using MontyHall.Models;
 
@@ -19,16 +16,20 @@ namespace MontyHall.Controllers
                 return RedirectToAction("Index", "Home");
             }
             doorState.ChosenDoor = id;
-            int doorsToSkip = new Random().Next(2); // return 0 or 1
-            doorState.Doors.Where(d => !d.IsWinner)
-                .Skip(doorsToSkip)
-                .FirstOrDefault()
-                .IsOpen = true;
+            int otherDoor = doorState.OtherDoor();
+
+            var eligibleDoors = doorState.Doors
+                .Where(d => !d.IsWinner && d.DoorNumber != id);
+
+            int doorsToSkip = new Random().Next(eligibleDoors.Count());
+
+            var chosenDoor = eligibleDoors.Skip(doorsToSkip).First();
+            chosenDoor.IsOpen = true;
 
             return View(doorState);
         }
          
-        public ActionResult Confirm(int id)
+        public ActionResult Confirm(int id, string choice)
         {
             var doorState = Session["DoorState"] as DoorState;
             if (doorState == null)
@@ -36,17 +37,22 @@ namespace MontyHall.Controllers
                 return RedirectToAction("Index", "Home");
             }
             doorState.ChosenDoor = id;
-            var stats = Session["Stats"] as Stats;
+            string sessionKey = "StayStats";
+            if(choice=="switch")
+            {
+                sessionKey = "SwitchStats";
+            }
+            var stats = Session[sessionKey] as Stats;
             bool isWinner = doorState.ChosenDoor == doorState.WinningDoor().DoorNumber;
             if (isWinner)
             {
                 stats.AddWin();
             }
             else
-            {
+            { 
                 stats.AddLoss();
             }
-            Session["Stats"] = stats;
+            Session[sessionKey] = stats;
             return View(isWinner);
         }
     }

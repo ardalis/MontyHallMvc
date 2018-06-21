@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
 using MontyHall.Models;
 
 namespace MontyHall.Controllers
@@ -10,28 +8,33 @@ namespace MontyHall.Controllers
     {
         public ActionResult Index()
         {
-            var stats = Session["Stats"] as Stats;
-            if (stats == null)
+            var stayStats = Session["StayStats"] as Stats;
+            if (stayStats == null)
             {
-                stats = new Stats();
-                Session["Stats"] = stats;
+                stayStats = new Stats();
+                Session["StayStats"] = stayStats;
+            }
+            var switchStats = Session["SwitchStats"] as Stats;
+            if (switchStats == null)
+            {
+                switchStats = new Stats();
+                Session["SwitchStats"] = switchStats;
             }
             Session["DoorState"] = new DoorState(3, PickDoor());
 
-            return View(stats);
+            var model = new StatModel()
+            {
+                StayStats = stayStats,
+                SwitchStats = switchStats
+            };
+
+            return View(model);
         }
 
-        public ActionResult About()
+        public ActionResult Reset()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
+            Session["Stats"] = null;
+            ViewBag.Message = "Stats reset.";
             return View();
         }
 

@@ -13,6 +13,25 @@
 
 <h2>Stick with Door Number @Model.ChosenDoor or switch?</h2>
 <ul>
-    <li><a href="/door/confirm/@Model.ChosenDoor.Value">KEEP MY CHOICE (Door @Model.ChosenDoor.Value) &raquo;</a></li>
-    <li><a href="/door/confirm/@Model.OtherDoor()">SWITCH TO Door @Model.OtherDoor() &raquo;</a></li>
+    <li><a href="/door/confirm/@Model.ChosenDoor.Value?choice=stay" id="stay">KEEP MY CHOICE (Door @Model.ChosenDoor.Value) &raquo;</a></li>
+    <li><a href="/door/confirm/@Model.OtherDoor()?choice=switch" id="switch">SWITCH TO Door @Model.OtherDoor() &raquo;</a></li>
 </ul>
+
+@section scripts
+{
+    <script type="text/javascript">
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+
+        $(document).ready(function () {
+            var link = 'stay';
+            if (getRandomInt(2) > 0) {
+                link = 'switch';
+            }
+            setTimeout(function () {
+                window.location = document.getElementById(link).href
+            }, 300);
+        });
+    </script>
+}

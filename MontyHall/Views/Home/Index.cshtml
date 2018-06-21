@@ -1,24 +1,48 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@model MontyHall.Models.Stats
-<h2>Stats</h2>
-<ul>
-    <li>Games Played: @Model.TotalGames()</li>
-    <li>Games Won: @Model.Wins</li>
-    <li>Win Rate: @Model.WinPercentage() %</li>
-</ul>
-<div class="row">
-    <div class="col-md-4">
-        <h2>DOOR 1</h2>
-        <p><a class="btn btn-default" href="/Door/Choose/1">Choose Door 1 &raquo;</a></p>
+@model MontyHall.Models.StatModel
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Stay Stats</h2>
+            <ul>
+                <li>Games Played: @Model.StayStats.TotalGames()</li>
+                <li>Games Won: @Model.StayStats.Wins</li>
+                <li>Win Rate: @Model.StayStats.WinPercentage() %</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h2>Switch Stats</h2>
+            <ul>
+                <li>Games Played: @Model.SwitchStats.TotalGames()</li>
+                <li>Games Won: @Model.SwitchStats.Wins</li>
+                <li>Win Rate: @Model.SwitchStats.WinPercentage() %</li>
+            </ul>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>DOOR 2</h2>
-        <p><a class="btn btn-default" href="/Door/Choose/2">Choose Door 2 &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>DOOR 3</h2>
-        <p><a class="btn btn-default" href="/Door/Choose/3">Choose Door 3 &raquo;</a></p>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>DOOR 1</h2>
+            <p><a class="btn btn-default" id="door1" href="/Door/Choose/1">Choose Door 1 &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>DOOR 2</h2>
+            <p><a class="btn btn-default" href="/Door/Choose/2">Choose Door 2 &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>DOOR 3</h2>
+            <p><a class="btn btn-default" href="/Door/Choose/3">Choose Door 3 &raquo;</a></p>
+        </div>
     </div>
 </div>
+@section scripts 
+{
+<script type="text/javascript">
+    $(document).ready(function() {
+    setTimeout(function() {
+        window.location = document.getElementById('door1').href
+    }, 1500);
+});
+</script>
+    }

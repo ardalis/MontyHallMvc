@@ -13,3 +13,14 @@ else
     <h2>YOU LOSE</h2>
 }
 <a href="/Home">Play Again</a>
+
+@section scripts
+{
+    <script type="text/javascript">
+    $(document).ready(function() {
+    setTimeout(function() {
+        window.location = '/Home';
+    }, 300);
+});
+    </script>
+}

@@ -1,5 +1,11 @@
 ﻿namespace MontyHall.Models
 {
+    public class StatModel
+    {
+        public Stats StayStats { get; set; }
+        public Stats SwitchStats { get; set; }
+    }
+
     public class Stats
     {
         public int Wins { get; set; }
